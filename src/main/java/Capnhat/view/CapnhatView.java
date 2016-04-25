@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
@@ -23,6 +25,13 @@ public class CapnhatView extends javax.swing.JPanel {
 	}
 
 	private void initComponents() {
+
+		JMenu menu = new JMenu();
+		JMenuItem menuItem = new JMenuItem("Thêm sách từ file");
+		JMenuItem menuItem2 = new JMenuItem("Thêm thành viên từ file");
+		menu.add(menuItem);
+		menu.add(menuItem2);
+		add(menu);
 
 		ImageIcon addBtnIcon;
 		Image image;

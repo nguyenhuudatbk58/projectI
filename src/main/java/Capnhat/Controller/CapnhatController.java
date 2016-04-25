@@ -5,10 +5,13 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import Capnhat.Controller.PhieuMuon.AddCouponController;
@@ -20,6 +23,7 @@ import Capnhat.Controller.ThanhVien.DeleteMemberController;
 import Capnhat.Controller.ThanhVien.EditMemberController;
 import Capnhat.view.CapnhatView;
 import Capnhat.view.PhieuMuon.AddCouponView;
+import Capnhat.view.PhieuMuon.DeleteCouponView;
 import Capnhat.view.Sach.AddBookView;
 import Capnhat.view.Sach.DeleteBookView;
 import Capnhat.view.Sach.EditBookView;
@@ -31,6 +35,7 @@ import DAO.SachDAO;
 import DAO.ThanhVienDAO;
 import Domain.PhieuMuon;
 import Domain.Sach;
+import Domain.SachMuon;
 import Domain.ThanhVien;
 
 public class CapnhatController {
@@ -49,7 +54,7 @@ public class CapnhatController {
 							new String[] { "STT ", "Tên sách", "Mã sách", "Tác giả", "Nhà xuất bản", "Giá ", "Chủ đề",
 									"Ngày nhập" }) {
 						public Class getColumnClass(int column) {
-							if (column == 0) {
+							if (column == 0 || column == 5) {
 								return Integer.class;
 							} else if (column == 7) {
 								return Date.class;
@@ -191,6 +196,7 @@ public class CapnhatController {
 		});
 
 		this.capnhatView.setAddButtonListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				String selectedSubject = CapnhatController.this.capnhatView.getSelectedSubject();
 				if (selectedSubject.equals("Sách")) {
@@ -224,7 +230,7 @@ public class CapnhatController {
 						book.setMaSach((String) bookTable.getValueAt(selectedRow, 2));
 						book.setTacGia((String) bookTable.getValueAt(selectedRow, 3));
 						book.setNhaXuatBan((String) bookTable.getValueAt(selectedRow, 4));
-						book.setGia((String) bookTable.getValueAt(selectedRow, 5));
+						book.setGia((Integer) bookTable.getValueAt(selectedRow, 5));
 						book.setChuDe((String) bookTable.getValueAt(selectedRow, 6));
 						book.setNgayThem((Date) bookTable.getValueAt(selectedRow, 7));
 						book.setId(SachDAO.getIdByBookCode(bookCode));
@@ -274,7 +280,7 @@ public class CapnhatController {
 						book.setMaSach((String) bookTable.getValueAt(selectedRow, 2));
 						book.setTacGia((String) bookTable.getValueAt(selectedRow, 3));
 						book.setNhaXuatBan((String) bookTable.getValueAt(selectedRow, 4));
-						book.setGia((String) bookTable.getValueAt(selectedRow, 5));
+						book.setGia((Integer) bookTable.getValueAt(selectedRow, 5));
 						book.setChuDe((String) bookTable.getValueAt(selectedRow, 6));
 						book.setNgayThem((Date) bookTable.getValueAt(selectedRow, 7));
 						book.setId(SachDAO.getIdByBookCode(bookCode));
@@ -301,6 +307,45 @@ public class CapnhatController {
 					}
 
 				} else if (selectedSubject.equals("Phiếu mượn")) {
+					JTable couponTable = CapnhatController.this.capnhatView.getMyTable();
+					int selectedRow = couponTable.getSelectedRow();
+					if (selectedRow == -1)
+						JOptionPane.showMessageDialog(null, "Chọn phiếu mượn cần xóa.");
+					else {
+						String couponCode = (String) couponTable.getValueAt(selectedRow, 1);
+						String memberCode = (String) couponTable.getValueAt(selectedRow, 2);
+						PhieuMuonDAO pmd = null;
+						SachDAO sachDAO = null;
+						PhieuMuon pm = pmd.getByCouponCode(couponCode);
+						Set<SachMuon> sms = pm.getSachMuon();
+
+						Iterator iterator = sms.iterator();
+						DefaultTableModel model = new DefaultTableModel(null,
+								new String[] { "Tên sách", "Mã sách", "Giá", "Ngày mượn", "Ngày trả" });
+						int gia = 0;
+						Vector<Object> v1 = null;
+						String bookCode = null;
+						int prepayMoney = 0;
+						while (iterator.hasNext()) {
+							v1 = new Vector<Object>();
+							SachMuon sm = (SachMuon) iterator.next();
+							bookCode = sm.getMaSach();
+							v1.add(sachDAO.getNameByBookCode(bookCode));
+							v1.add(bookCode);
+							gia = sachDAO.getCostByBookCode(sm.getMaSach());
+							v1.add(gia);
+							v1.add(sm.getNgayMuon());
+							v1.add(sm.getNgayTra());
+							prepayMoney += gia;
+							model.addRow(v1);
+						}
+
+						ThanhVienDAO tvd = null;
+						String memberName = tvd.getMemberNameByMemberCode(memberCode);
+						prepayMoney = (prepayMoney / 10) * 7;
+						new DeleteCouponView(couponCode, memberName, memberCode, prepayMoney, model,
+								CapnhatController.this);
+					}
 
 				}
 
@@ -309,4 +354,30 @@ public class CapnhatController {
 		});
 	}
 
+	public void loadCoupon() {
+		JTable couponTable = CapnhatController.this.capnhatView.getMyTable();
+		javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(null,
+				new String[] { "STT ", "Mã phiếu mượn", "Mã thành viên" }) {
+			public Class getColumnClass(int column) {
+				return String.class;
+			}
+
+			public boolean isCellEditable(int row, int col) {
+				return false;
+			}
+		};
+		couponTable.setModel(tableModel);
+		PhieuMuonDAO phieuMuonDAO = null;
+		ArrayList<PhieuMuon> coupons = phieuMuonDAO.getAll();
+
+		Vector<Object> v;
+		for (int i = 0; i < coupons.size(); i++) {
+			PhieuMuon coupon = coupons.get(i);
+			v = new Vector<Object>();
+			v.add(i + 1);
+			v.add(coupon.getMaPhieu());
+			v.add(coupon.getMaThanhVien());
+			tableModel.addRow(v);
+		}
+	}
 }

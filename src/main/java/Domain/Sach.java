@@ -32,7 +32,7 @@ public class Sach {
 	private String nhaXuatBan;
 
 	@Column(name = "gia", nullable = false)
-	private String gia;
+	private int gia;
 
 	@Column(name = "chu_de", nullable = false)
 	private String chuDe;
@@ -40,7 +40,7 @@ public class Sach {
 	@Column(name = "ngay_nhap", nullable = false)
 	private Date ngayThem;
 
-	public Sach(String ten, String maSach, String tacGia, String nhaXuatBan, String gia, String chuDe, Date ngayThem) {
+	public Sach(String ten, String maSach, String tacGia, String nhaXuatBan, int gia, String chuDe, Date ngayThem) {
 		super();
 		this.ten = ten;
 		this.maSach = maSach;
@@ -103,11 +103,11 @@ public class Sach {
 		this.nhaXuatBan = nhaXuatBan;
 	}
 
-	public String getGia() {
+	public int getGia() {
 		return gia;
 	}
 
-	public void setGia(String gia) {
+	public void setGia(int gia) {
 		this.gia = gia;
 	}
 

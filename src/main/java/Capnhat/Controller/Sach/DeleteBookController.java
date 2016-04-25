@@ -36,7 +36,7 @@ public class DeleteBookController {
 						new String[] { "STT ", "Tên sách", "Mã sách", "Tác giả", "Nhà xuất bản", "Giá ", "Chủ đề",
 								"Ngày nhập" }) {
 					public Class getColumnClass(int column) {
-						if (column == 0) {
+						if (column == 0 || column == 5) {
 							return Integer.class;
 						} else if (column == 7) {
 							return Date.class;

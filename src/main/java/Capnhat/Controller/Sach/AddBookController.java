@@ -2,6 +2,7 @@ package Capnhat.Controller.Sach;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -95,6 +96,17 @@ public class AddBookController {
 				AddBookController.this.addBookView.dispose();
 			}
 
+		});
+
+		this.addBookView.setReadFileButtonListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					ReadBookFile.readFile();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+			}
 		});
 	}
 }

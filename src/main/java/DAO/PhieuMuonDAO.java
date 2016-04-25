@@ -115,5 +115,17 @@ public class PhieuMuonDAO {
 		
 		return (Integer) query.uniqueResult();
 	}
+	
+	public static PhieuMuon getByMemberCode(String memberCode) {
+		session = factory.openSession();
+		ts = session.beginTransaction();
+
+		Query query = session.createQuery(" from PhieuMuon where maThanhVien= :maThanhVien");
+		query.setParameter("maThanhVien", memberCode);
+
+		PhieuMuon pm = (PhieuMuon) query.uniqueResult();
+
+		return pm;
+	}
 
 }

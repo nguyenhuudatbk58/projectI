@@ -27,7 +27,7 @@ public class EditBookView extends javax.swing.JFrame {
 		NhaXuatBanTextField = new javax.swing.JTextField();
 		TacGiaTextField = new javax.swing.JTextField();
 		ChuDeTextField = new javax.swing.JTextField();
-		GiaTextField = new javax.swing.JFormattedTextField();
+		GiaSpinner = new javax.swing.JSpinner();
 		TacGiaLabel = new javax.swing.JLabel();
 		ChuDeLabel = new javax.swing.JLabel();
 		GiaLabel = new javax.swing.JLabel();
@@ -118,7 +118,7 @@ public class EditBookView extends javax.swing.JFrame {
 														javax.swing.GroupLayout.Alignment.TRAILING,
 														javax.swing.GroupLayout.PREFERRED_SIZE, 357,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(GiaTextField, javax.swing.GroupLayout.Alignment.TRAILING,
+												.addComponent(GiaSpinner, javax.swing.GroupLayout.Alignment.TRAILING,
 														javax.swing.GroupLayout.PREFERRED_SIZE, 357,
 														javax.swing.GroupLayout.PREFERRED_SIZE))))));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +157,7 @@ public class EditBookView extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addGap(18, 18, 18)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(GiaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
+								.addComponent(GiaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(GiaLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -202,8 +202,8 @@ public class EditBookView extends javax.swing.JFrame {
 		this.ChuDeTextField.setText(chuDe);
 	}
 
-	public void setGiaSach(String gia) {
-		this.GiaTextField.setText(gia);
+	public void setGiaSach(int gia) {
+		this.GiaSpinner.setValue(gia);
 	}
 
 	public void setNgayNhap(String ngayNhap) {
@@ -232,8 +232,8 @@ public class EditBookView extends javax.swing.JFrame {
 		return this.ChuDeTextField.getText();
 	}
 
-	public String getGia() {
-		return this.GiaTextField.getText();
+	public int getGia() {
+		return (Integer) this.GiaSpinner.getValue();
 	}
 
 	public String getNgayNhap() {
@@ -260,7 +260,7 @@ public class EditBookView extends javax.swing.JFrame {
 	private javax.swing.JTextField NhaXuatBanTextField;
 	private javax.swing.JTextField TacGiaTextField;
 	private javax.swing.JTextField ChuDeTextField;
-	private javax.swing.JFormattedTextField GiaTextField;
+	private javax.swing.JSpinner GiaSpinner;
 	private javax.swing.JFormattedTextField NgayNhapTextField;
 	// End of variables declaration
 }

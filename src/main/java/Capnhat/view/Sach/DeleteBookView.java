@@ -199,8 +199,8 @@ public class DeleteBookView extends javax.swing.JFrame {
 		this.ChuDeLabel2.setText(chuDe);
 	}
 
-	public void setGiaSach(String gia) {
-		this.GiaLabel2.setText(gia);
+	public void setGiaSach(int gia) {
+		this.GiaLabel2.setText("" + gia);
 	}
 
 	public void setNgayNhap(String ngayNhap) {

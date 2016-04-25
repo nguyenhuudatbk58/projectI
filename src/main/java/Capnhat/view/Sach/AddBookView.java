@@ -1,10 +1,7 @@
 package Capnhat.view.Sach;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.text.MaskFormatter;
 
@@ -31,13 +28,14 @@ public class AddBookView extends javax.swing.JFrame {
 		NhaXuatBanTextField = new javax.swing.JTextField("Nhà xuất bản");
 		TacGiaTextField = new javax.swing.JTextField("Tác giả");
 		ChuDeTextField = new javax.swing.JTextField("Chủ đề");
-		GiaTextField = new javax.swing.JFormattedTextField();
+		GiaSpinner = new javax.swing.JSpinner();
 		TacGiaLabel = new javax.swing.JLabel();
 		ChuDeLabel = new javax.swing.JLabel();
 		GiaLabel = new javax.swing.JLabel();
 		jPanel1 = new javax.swing.JPanel();
 		addButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
+		readFileButton = new javax.swing.JButton();
 
 		try {
 			NgayNhapTextField = new javax.swing.JFormattedTextField(new MaskFormatter("##--##--####"));
@@ -66,16 +64,33 @@ public class AddBookView extends javax.swing.JFrame {
 		addButton.setText("Thêm");
 		cancelButton.setText("Hủy ");
 
+		// javax.swing.GroupLayout jPanel1Layout = new
+		// javax.swing.GroupLayout(jPanel1);
+		// jPanel1.setLayout(jPanel1Layout);
+		// jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addGroup(jPanel1Layout.createSequentialGroup().addGap(180, 180,
+		// 180).addComponent(addButton)
+		// .addGap(18, 18, 18).addComponent(cancelButton)
+		// .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+		// Short.MAX_VALUE)));
+		// jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addGroup(jPanel1Layout.createSequentialGroup().addGap(20, 20, 20)
+		// .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+		// .addComponent(cancelButton).addComponent(addButton))
+		// .addContainerGap(22, Short.MAX_VALUE)));
+
+		readFileButton.setText("Thêm từ file");
+
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addGap(180, 180, 180).addComponent(addButton)
-						.addGap(18, 18, 18).addComponent(cancelButton)
+				.addGroup(jPanel1Layout.createSequentialGroup().addGap(87, 87, 87).addComponent(readFileButton)
+						.addGap(29, 29, 29).addComponent(addButton).addGap(26, 26, 26).addComponent(cancelButton)
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel1Layout.createSequentialGroup().addGap(20, 20, 20)
 						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(cancelButton).addComponent(addButton))
+								.addComponent(readFileButton).addComponent(addButton).addComponent(cancelButton))
 						.addContainerGap(22, Short.MAX_VALUE)));
 
 		jLabel8.setText("Ngày nhập");
@@ -122,7 +137,7 @@ public class AddBookView extends javax.swing.JFrame {
 														javax.swing.GroupLayout.Alignment.TRAILING,
 														javax.swing.GroupLayout.PREFERRED_SIZE, 357,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(GiaTextField, javax.swing.GroupLayout.Alignment.TRAILING,
+												.addComponent(GiaSpinner, javax.swing.GroupLayout.Alignment.TRAILING,
 														javax.swing.GroupLayout.PREFERRED_SIZE, 357,
 														javax.swing.GroupLayout.PREFERRED_SIZE))))));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +176,7 @@ public class AddBookView extends javax.swing.JFrame {
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addGap(18, 18, 18)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(GiaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
+								.addComponent(GiaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(GiaLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -186,6 +201,10 @@ public class AddBookView extends javax.swing.JFrame {
 		cancelButton.addActionListener(cancelButtonActionListener);
 	}
 
+	public void setReadFileButtonListener(ActionListener listener) {
+		readFileButton.addActionListener(listener);
+	}
+
 	public String getTenSach() {
 		return this.TenTextField.getText();
 	}
@@ -207,8 +226,8 @@ public class AddBookView extends javax.swing.JFrame {
 		return this.ChuDeTextField.getText();
 	}
 
-	public String getGia() {
-		return this.GiaTextField.getText();
+	public int getGia() {
+		return (Integer) this.GiaSpinner.getValue();
 	}
 
 	public String getNgayNhap() {
@@ -223,9 +242,10 @@ public class AddBookView extends javax.swing.JFrame {
 		this.ChuDeTextField.setText(null);
 		this.ChuDeTextField.setText(null);
 		this.NgayNhapTextField.setText(null);
-		this.GiaTextField.setText(null);
+		this.GiaSpinner.setValue(0);
 	}
 
+	private javax.swing.JButton readFileButton;
 	private javax.swing.JButton addButton;
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JLabel instructionLabel;
@@ -242,7 +262,7 @@ public class AddBookView extends javax.swing.JFrame {
 	private javax.swing.JTextField NhaXuatBanTextField;
 	private javax.swing.JTextField TacGiaTextField;
 	private javax.swing.JTextField ChuDeTextField;
-	private javax.swing.JFormattedTextField GiaTextField;
+	private javax.swing.JSpinner GiaSpinner;
 	private javax.swing.JFormattedTextField NgayNhapTextField;
 	// End of variables declaration
 }

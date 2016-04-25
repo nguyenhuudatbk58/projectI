@@ -10,8 +10,11 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import Domain.SachMuon;
 
@@ -47,15 +50,18 @@ public class AddCouponView extends javax.swing.JFrame {
 		jSeparator1 = new javax.swing.JSeparator();
 		cancelButton = new javax.swing.JButton();
 		memberCodeComboBox = new javax.swing.JComboBox<String>();
+		AutoCompleteDecorator.decorate(memberCodeComboBox);
 		memberNameLabel = new javax.swing.JLabel();
 		jToolBar1 = new javax.swing.JToolBar();
 		bookCodeLabel = new javax.swing.JLabel();
 		bookCodeComboBox = new javax.swing.JComboBox<String>();
+		AutoCompleteDecorator.decorate(bookCodeComboBox);
 		loanDateLabel = new javax.swing.JLabel();
 		try {
 			loanDateFormattedTF = new javax.swing.JFormattedTextField(new MaskFormatter("##-##-####"));
 			repaymentFormattedTF = new javax.swing.JFormattedTextField(new MaskFormatter("##-##-####"));
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		repaymentLabel = new javax.swing.JLabel();
@@ -63,6 +69,9 @@ public class AddCouponView extends javax.swing.JFrame {
 		editBookButton = new javax.swing.JButton();
 		deleteBookButton = new javax.swing.JButton();
 		memberNameTextField = new javax.swing.JTextField();
+		prepayMoneyTitle = new javax.swing.JLabel("Tiền cọc(70%):");
+		prepayMoney = new javax.swing.JLabel("200 000 (dong)");
+		errorLabel = new javax.swing.JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,7 +79,7 @@ public class AddCouponView extends javax.swing.JFrame {
 
 		couponCodeLable.setText("Mã phiếu mượn");
 
-		loanBookTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+		loanBookTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 		loanBookTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
 				new String[] { "Mã sách", "Ngày mượn", "Ngày trả" }));
 		jScrollPane3.setViewportView(loanBookTable);
@@ -140,6 +149,91 @@ public class AddCouponView extends javax.swing.JFrame {
 		deleteBookButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 		jToolBar1.add(deleteBookButton);
 
+		// javax.swing.GroupLayout layout = new
+		// javax.swing.GroupLayout(getContentPane());
+		// getContentPane().setLayout(layout);
+		// layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addGroup(layout.createSequentialGroup().addGap(305, 305,
+		// 305).addComponent(addCouponButton)
+		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+		// .addComponent(cancelButton)
+		// .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+		// Short.MAX_VALUE))
+		// .addGroup(layout.createSequentialGroup().addGap(45, 45, 45)
+		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+		// false)
+		// .addComponent(couponCodeLable, javax.swing.GroupLayout.DEFAULT_SIZE,
+		// 102,
+		// Short.MAX_VALUE)
+		// .addComponent(memberCodelabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+		// javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		// .addGap(26, 26, 26)
+		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE,
+		// 198,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addComponent(memberCodeComboBox,
+		// javax.swing.GroupLayout.Alignment.TRAILING,
+		// javax.swing.GroupLayout.PREFERRED_SIZE, 198,
+		// javax.swing.GroupLayout.PREFERRED_SIZE))
+		// .addGap(38, 38, 38)
+		// .addComponent(memberNameLabel,
+		// javax.swing.GroupLayout.PREFERRED_SIZE, 90,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+		// 28, Short.MAX_VALUE)
+		// .addComponent(memberNameTextField,
+		// javax.swing.GroupLayout.PREFERRED_SIZE, 253,
+		// javax.swing.GroupLayout.PREFERRED_SIZE))
+		// .addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jSeparator1))
+		// .addComponent(jScrollPane3,
+		// javax.swing.GroupLayout.Alignment.TRAILING).addComponent(jToolBar1,
+		// javax.swing.GroupLayout.Alignment.TRAILING,
+		// javax.swing.GroupLayout.DEFAULT_SIZE,
+		// javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		// layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addGroup(layout.createSequentialGroup().addGap(37, 37, 37)
+		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+		// .addComponent(couponCodeLable,
+		// javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE,
+		// 34,
+		// javax.swing.GroupLayout.PREFERRED_SIZE))
+		// .addGap(11, 11, 11)
+		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+		// false)
+		// .addComponent(memberNameTextField)
+		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+		// false)
+		// .addComponent(memberCodelabel,
+		// javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addGroup(layout.createSequentialGroup().addGap(6, 6,
+		// 6).addGroup(layout
+		// .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+		// .addComponent(memberCodeComboBox,
+		// javax.swing.GroupLayout.DEFAULT_SIZE,
+		// javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		// .addComponent(memberNameLabel,
+		// javax.swing.GroupLayout.PREFERRED_SIZE,
+		// 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+		// .addGap(48, 48, 48)
+		// .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE,
+		// javax.swing.GroupLayout.DEFAULT_SIZE,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+		// 38, Short.MAX_VALUE)
+		// .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addGap(18, 18, 18)
+		// .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE,
+		// 225,
+		// javax.swing.GroupLayout.PREFERRED_SIZE)
+		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addComponent(cancelButton).addComponent(addCouponButton))));
+
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,53 +241,73 @@ public class AddCouponView extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(cancelButton)
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(
+						layout.createSequentialGroup().addContainerGap().addComponent(jSeparator1))
+				.addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+				.addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addGroup(layout.createSequentialGroup().addGap(45, 45, 45)
-						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addComponent(couponCodeLable, javax.swing.GroupLayout.DEFAULT_SIZE, 102,
-										Short.MAX_VALUE)
-								.addComponent(memberCodelabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGap(26, 26, 26)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 198,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(memberCodeComboBox, javax.swing.GroupLayout.Alignment.TRAILING,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 198,
+								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+										.addComponent(couponCodeLable, javax.swing.GroupLayout.DEFAULT_SIZE,
+												102, Short.MAX_VALUE)
+										.addComponent(memberCodelabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(prepayMoneyTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 83,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGap(38, 38, 38)
-						.addComponent(memberNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-						.addComponent(memberNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 253,
-								javax.swing.GroupLayout.PREFERRED_SIZE))
-				.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jSeparator1))
-				.addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING).addComponent(jToolBar1,
-						javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE,
-						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+						.addGap(24, 24, 24)
+						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 198,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(memberCodeComboBox, javax.swing.GroupLayout.Alignment.TRAILING,
+												javax.swing.GroupLayout.PREFERRED_SIZE, 198,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addComponent(prepayMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+										javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(40, 40, 40)
+						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(layout.createSequentialGroup()
+										.addComponent(memberNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28,
+												Short.MAX_VALUE)
+										.addComponent(memberNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 253,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addGroup(layout.createSequentialGroup()
+										.addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 230,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGap(0, 0, Short.MAX_VALUE)))));
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addGap(37, 37, 37)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(couponCodeLable, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 34,
+								.addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE,
+										34, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
 										javax.swing.GroupLayout.PREFERRED_SIZE))
 						.addGap(11, 11, 11)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 								.addComponent(memberNameTextField)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-										.addComponent(memberCodelabel,
-												javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGroup(layout.createSequentialGroup().addGap(6, 6, 6).addGroup(layout
-												.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(memberCodelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGroup(layout.createSequentialGroup().addGap(6, 6, 6)
+										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 												.addComponent(memberCodeComboBox, javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 												.addComponent(memberNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
-														30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-						.addGap(48, 48, 48)
+														30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(prepayMoneyTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(prepayMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 22,
+										javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
 						.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
 						.addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(18, 18, 18)
@@ -222,6 +336,16 @@ public class AddCouponView extends javax.swing.JFrame {
 		}
 
 		return sms;
+	}
+
+	public void removeBookCode(String bookCode) {
+		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) this.bookCodeComboBox.getModel();
+		model.removeElement(bookCode);
+	}
+
+	public void addBookCode(String bookCode) {
+		DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) this.bookCodeComboBox.getModel();
+		model.addElement(bookCode);
 	}
 
 	public JComboBox getBookCodeComboBox() {
@@ -331,6 +455,11 @@ public class AddCouponView extends javax.swing.JFrame {
 		tableModel.addRow(v);
 	}
 
+	public void resetTable() {
+		loanBookTable.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
+				new String[] { "Mã sách", "Ngày mượn", "Ngày trả" }));
+	}
+
 	public void setLoanBookInTableAtRow(String bookCode, Date loanDate, Date payDate, int row) {
 		DefaultTableModel tableModel = (DefaultTableModel) loanBookTable.getModel();
 
@@ -387,6 +516,14 @@ public class AddCouponView extends javax.swing.JFrame {
 		this.memberCodeComboBox.addActionListener(listener);
 	}
 
+	public void setCouponTFDocumentListener(DocumentListener listener) {
+		this.couponCodeTF.getDocument().addDocumentListener(listener);
+	}
+
+	public void setError(String error) {
+		this.errorLabel.setText(error);
+	}
+
 	public JTable getLoanBookTable() {
 		return this.loanBookTable;
 	}
@@ -395,6 +532,9 @@ public class AddCouponView extends javax.swing.JFrame {
 		new AddCouponView();
 	}
 
+	private javax.swing.JLabel prepayMoneyTitle;
+	private javax.swing.JLabel errorLabel;
+	private javax.swing.JLabel prepayMoney;
 	private int lastSelectedRow;
 	private javax.swing.JButton addBookButton;
 	private javax.swing.JButton addCouponButton;

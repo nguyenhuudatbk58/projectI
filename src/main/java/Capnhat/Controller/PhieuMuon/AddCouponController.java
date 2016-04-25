@@ -7,14 +7,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import Capnhat.view.PhieuMuon.AddCouponView;
+import Capnhat.view.PhieuMuon.Coupon;
 import DAO.PhieuMuonDAO;
 import DAO.SachDAO;
 import DAO.ThanhVienDAO;
@@ -24,6 +27,10 @@ import Domain.SachMuon;
 public class AddCouponController {
 
 	private PhieuMuonDAO pmd;
+
+	private SachDAO sachDAO;
+
+	private ThanhVienDAO tvd;
 
 	private AddCouponView addCouponView;
 
@@ -83,7 +90,29 @@ public class AddCouponController {
 				String couponCode = AddCouponController.this.addCouponView.getCouponCode();
 				String memberCode = AddCouponController.this.addCouponView.getMemberCode();
 
+				if (couponCode == null) {
+					JOptionPane.showMessageDialog(null, "Nhập mã phiếu mượn.");
+					return;
+				}
+
+				PhieuMuonDAO pmd = null;
+
+				if (pmd.getByCouponCode(couponCode) != null) {
+					JOptionPane.showMessageDialog(null, "Mã phiếu đã tồn tại.Hãy chọn mã phiếu khác.");
+					return ;
+				}
+				if (pmd.getByMemberCode(memberCode) != null) {
+					JOptionPane.showMessageDialog(null,
+							"Thành viên hiện tại đang mượn sách của thư viên, cần trả sách trước khi mượn.");
+					return;
+				}
+
 				HashSet<SachMuon> sms = AddCouponController.this.addCouponView.getSachMuons();
+
+				if (sms.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Nhập sách mượn");
+					return;
+				}
 
 				PhieuMuon pm = new PhieuMuon();
 
@@ -115,6 +144,34 @@ public class AddCouponController {
 					v.add(coupon.getMaThanhVien());
 					tableModel.addRow(v);
 				}
+
+				AddCouponController.this.addCouponView.setVisible(false);
+				AddCouponController.this.addCouponView.dispose();
+
+				Iterator iterator = sms.iterator();
+				DefaultTableModel model = new DefaultTableModel(null,
+						new String[] { "Tên sách", "Mã sách", "Giá", "Ngày mượn", "Ngày trả" });
+				int gia = 0;
+				Vector<Object> v1 = null;
+				String bookCode = null;
+				int prepayMoney = 0;
+				while (iterator.hasNext()) {
+					v1 = new Vector<Object>();
+					SachMuon sm = (SachMuon) iterator.next();
+					bookCode = sm.getMaSach();
+					v1.add(sachDAO.getNameByBookCode(bookCode));
+					v1.add(bookCode);
+					gia = sachDAO.getCostByBookCode(sm.getMaSach());
+					v1.add(gia);
+					v1.add(sm.getNgayMuon());
+					v1.add(sm.getNgayTra());
+					prepayMoney += gia;
+					model.addRow(v1);
+				}
+
+				String memberName = tvd.getMemberNameByMemberCode(memberCode);
+				prepayMoney = (prepayMoney / 10) * 7;
+				new Coupon(couponCode, memberName, memberCode, prepayMoney, model);
 
 			}
 
@@ -232,13 +289,24 @@ class EditLoanBook extends javax.swing.JFrame {
 
 				String bookCode = (String) bookCodeComboBox.getSelectedItem();
 				addCouponView.setLoanBookInTableAtRow(bookCode, loanDate, payDate, selectedRow);
+				EditLoanBook.this.setVisible(false);
+				EditLoanBook.this.dispose();
 			}
 
 		});
 
 		cancelButton.setText("Hủy    ");
+		cancelButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				EditLoanBook.this.setVisible(false);
+				EditLoanBook.this.dispose();
+
+			}
+		});
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
 				.createSequentialGroup()

@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 import Capnhat.Controller.CapnhatController;
 import Capnhat.view.CapnhatView;
 import DAO.SachDAO;
+import ThongKe.view.ThongKe;
 import TimKiem.Controller.TimKiemController;
 import TimKiem.View.TimKiemView;
 
@@ -29,6 +30,7 @@ public class MainView extends JFrame {
 		TimKiemView timKiemView = new TimKiemView();
 		new TimKiemController(timKiemView);
 		tabbedPane.addTab("Tìm kiếm", timKiemView);
+		tabbedPane.addTab("Thống kê", new ThongKe());
 		add(tabbedPane);
 		SachDAO sachDAO = new SachDAO();
 		setVisible(true);

@@ -23,6 +23,7 @@ public class AddMemberView extends javax.swing.JFrame {
 		jPanel1 = new javax.swing.JPanel();
 		addButton = new javax.swing.JButton();
 		cancelButton = new javax.swing.JButton();
+		readFileButton = new javax.swing.JButton();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -45,15 +46,32 @@ public class AddMemberView extends javax.swing.JFrame {
 
 		cancelButton.setText("Hủy ");
 
+		// javax.swing.GroupLayout jPanel1Layout = new
+		// javax.swing.GroupLayout(jPanel1);
+		// jPanel1.setLayout(jPanel1Layout);
+		// jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addGroup(jPanel1Layout.createSequentialGroup().addGap(180, 180,
+		// 180).addComponent(addButton)
+		// .addGap(18, 18, 18).addComponent(cancelButton).addContainerGap(227,
+		// Short.MAX_VALUE)));
+		// jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		// .addGroup(jPanel1Layout.createSequentialGroup().addGap(20, 20, 20)
+		// .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+		// .addComponent(cancelButton).addComponent(addButton))
+		// .addContainerGap(22, Short.MAX_VALUE)));
+
+		readFileButton.setText("Thêm từ file");
+
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addGap(180, 180, 180).addComponent(addButton)
-						.addGap(18, 18, 18).addComponent(cancelButton).addContainerGap(227, Short.MAX_VALUE)));
+				.addGroup(jPanel1Layout.createSequentialGroup().addGap(87, 87, 87).addComponent(readFileButton)
+						.addGap(29, 29, 29).addComponent(addButton).addGap(26, 26, 26).addComponent(cancelButton)
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanel1Layout.createSequentialGroup().addGap(20, 20, 20)
 						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(cancelButton).addComponent(addButton))
+								.addComponent(readFileButton).addComponent(addButton).addComponent(cancelButton))
 						.addContainerGap(22, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,6 +142,10 @@ public class AddMemberView extends javax.swing.JFrame {
 		cancelButton.addActionListener(cancelButtonActionListener);
 	}
 
+	public void setReadFileButtonListener(ActionListener listener) {
+		readFileButton.addActionListener(listener);
+	}
+
 	public String getTen() {
 		return tenTextField.getText();
 	}
@@ -156,6 +178,7 @@ public class AddMemberView extends javax.swing.JFrame {
 		});
 	}
 
+	private javax.swing.JButton readFileButton;
 	private javax.swing.JButton addButton;
 	private javax.swing.JButton cancelButton;
 	private javax.swing.JLabel introductionLabel;

@@ -1,7 +1,9 @@
 package DAO;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -9,6 +11,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import Domain.ThanhVien;
 
@@ -27,7 +33,7 @@ public class ThanhVienDAO {
 
 	}
 
-	ThanhVienDAO() {
+	public ThanhVienDAO() {
 		try {
 			factory = new Configuration().configure().buildSessionFactory();
 
@@ -115,14 +121,45 @@ public class ThanhVienDAO {
 
 		return memberName;
 	}
-	public static int getIdByMemberCode(String memberCode){
+
+	public static int getIdByMemberCode(String memberCode) {
 		session = factory.openSession();
 		ts = session.beginTransaction();
 
 		Query query = session.createQuery("select id from ThanhVien where maThanhVien= :maThanhVien");
 		query.setParameter("maThanhVien", memberCode);
-		
+
 		return (Integer) query.uniqueResult();
+	}
+
+	public static int findTotal(Date fromTime, Date toTime) {
+
+		session = factory.openSession();
+		ts = session.beginTransaction();
+		Criteria criteria = session.createCriteria(ThanhVien.class);
+		criteria.setProjection(Projections.rowCount());
+		Criterion fT = null;
+		Criterion tT = null;
+		if (fromTime != null) {
+			fT = Restrictions.ge("ngayThamGia", fromTime);
+		}
+		if (toTime != null) {
+			tT = Restrictions.le("ngayThamGia", toTime);
+		}
+		if (fromTime != null && toTime != null) {
+			LogicalExpression andEL = Restrictions.and(tT, fT);
+			criteria.add(andEL);
+		}
+		if (fromTime != null) {
+			criteria.add(fT);
+		}
+		if (toTime != null) {
+			criteria.add(tT);
+		}
+
+		int total = (Integer) criteria.uniqueResult();
+
+		return total;
 	}
 
 }
