@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import Capnhat.Controller.PhieuMuon.AddCouponController;
+import Capnhat.Controller.PhieuMuon.EditCouponController;
 import Capnhat.Controller.Sach.AddBookController;
 import Capnhat.Controller.Sach.DeleteBookController;
 import Capnhat.Controller.Sach.EditBookController;
@@ -24,6 +25,7 @@ import Capnhat.Controller.ThanhVien.EditMemberController;
 import Capnhat.view.CapnhatView;
 import Capnhat.view.PhieuMuon.AddCouponView;
 import Capnhat.view.PhieuMuon.DeleteCouponView;
+import Capnhat.view.PhieuMuon.EditCouponView;
 import Capnhat.view.Sach.AddBookView;
 import Capnhat.view.Sach.DeleteBookView;
 import Capnhat.view.Sach.EditBookView;
@@ -258,7 +260,15 @@ public class CapnhatController {
 					}
 
 				} else if (selectedSubject.equals("Phiếu mượn")) {
+					JTable memberTable = CapnhatController.this.capnhatView.getMyTable();
+					int selectedRow = memberTable.getSelectedRow();
+					if (selectedRow == -1)
+						JOptionPane.showMessageDialog(null, "Chọn thành viên cần chỉnh sửa.");
+					else {
+						new EditCouponController(new EditCouponView(), memberTable,
+								(String) memberTable.getValueAt(selectedRow, 1));
 
+					}
 				}
 
 			}

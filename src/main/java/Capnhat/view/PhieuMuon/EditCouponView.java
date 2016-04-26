@@ -18,14 +18,14 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import Domain.SachMuon;
 
-public class AddCouponView extends javax.swing.JFrame {
+public class EditCouponView extends javax.swing.JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AddCouponView() {
+	public EditCouponView() {
 		initComponents();
 	}
 
@@ -84,7 +84,7 @@ public class AddCouponView extends javax.swing.JFrame {
 				new String[] { "Mã sách", "Ngày mượn", "Ngày trả" }));
 		jScrollPane3.setViewportView(loanBookTable);
 
-		addCouponButton.setText("Thêm");
+		addCouponButton.setText("Cập nhật");
 
 		jSeparator1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -149,90 +149,7 @@ public class AddCouponView extends javax.swing.JFrame {
 		deleteBookButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 		jToolBar1.add(deleteBookButton);
 
-		// javax.swing.GroupLayout layout = new
-		// javax.swing.GroupLayout(getContentPane());
-		// getContentPane().setLayout(layout);
-		// layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		// .addGroup(layout.createSequentialGroup().addGap(305, 305,
-		// 305).addComponent(addCouponButton)
-		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-		// .addComponent(cancelButton)
-		// .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-		// Short.MAX_VALUE))
-		// .addGroup(layout.createSequentialGroup().addGap(45, 45, 45)
-		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-		// false)
-		// .addComponent(couponCodeLable, javax.swing.GroupLayout.DEFAULT_SIZE,
-		// 102,
-		// Short.MAX_VALUE)
-		// .addComponent(memberCodelabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-		// javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		// .addGap(26, 26, 26)
-		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		// .addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE,
-		// 198,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addComponent(memberCodeComboBox,
-		// javax.swing.GroupLayout.Alignment.TRAILING,
-		// javax.swing.GroupLayout.PREFERRED_SIZE, 198,
-		// javax.swing.GroupLayout.PREFERRED_SIZE))
-		// .addGap(38, 38, 38)
-		// .addComponent(memberNameLabel,
-		// javax.swing.GroupLayout.PREFERRED_SIZE, 90,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-		// 28, Short.MAX_VALUE)
-		// .addComponent(memberNameTextField,
-		// javax.swing.GroupLayout.PREFERRED_SIZE, 253,
-		// javax.swing.GroupLayout.PREFERRED_SIZE))
-		// .addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jSeparator1))
-		// .addComponent(jScrollPane3,
-		// javax.swing.GroupLayout.Alignment.TRAILING).addComponent(jToolBar1,
-		// javax.swing.GroupLayout.Alignment.TRAILING,
-		// javax.swing.GroupLayout.DEFAULT_SIZE,
-		// javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		// layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		// .addGroup(layout.createSequentialGroup().addGap(37, 37, 37)
-		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-		// .addComponent(couponCodeLable,
-		// javax.swing.GroupLayout.PREFERRED_SIZE, 34,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addComponent(couponCodeTF, javax.swing.GroupLayout.PREFERRED_SIZE,
-		// 34,
-		// javax.swing.GroupLayout.PREFERRED_SIZE))
-		// .addGap(11, 11, 11)
-		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-		// false)
-		// .addComponent(memberNameTextField)
-		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-		// false)
-		// .addComponent(memberCodelabel,
-		// javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addGroup(layout.createSequentialGroup().addGap(6, 6,
-		// 6).addGroup(layout
-		// .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-		// .addComponent(memberCodeComboBox,
-		// javax.swing.GroupLayout.DEFAULT_SIZE,
-		// javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-		// .addComponent(memberNameLabel,
-		// javax.swing.GroupLayout.PREFERRED_SIZE,
-		// 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-		// .addGap(48, 48, 48)
-		// .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE,
-		// javax.swing.GroupLayout.DEFAULT_SIZE,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-		// 38, Short.MAX_VALUE)
-		// .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addGap(18, 18, 18)
-		// .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE,
-		// 225,
-		// javax.swing.GroupLayout.PREFERRED_SIZE)
-		// .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-		// .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		// .addComponent(cancelButton).addComponent(addCouponButton))));
+		
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
